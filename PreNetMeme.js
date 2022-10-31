@@ -19,7 +19,7 @@ var COLS=3;
 
 var CARD_H = 142;	// カードの高さ
 var CARD_W = 142;	// カードの幅
-var DEFAULT_TIME = 60;	// 残り時間
+var DEFAULT_TIME = 180;	// 残り時間
 // 変数
 var Ori_cards = [];	// 元ネタカードの番号を記録
 var Meme_cards= []; // ミームカードの番号を記録
@@ -57,7 +57,7 @@ function initGame() {
 	$("score").innerHTML = "SCORE: 0";
 	initCards();
 	drawStage();
-	//countTime();
+	countTime();
     //$("result1").innerHTML = Ori_RESOURCE_FILE.width;
     //$("result2").innerHTML = Ori_RESOURCE_FILE.height;
 }
