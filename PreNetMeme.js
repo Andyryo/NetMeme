@@ -1,21 +1,24 @@
 // ネトミム
 // ----------------------------------------
 // 定数
-var Ori_RESOURCE_FILE = "Preresource.png"; //元ネタ画像集
-var Meme_RESOURCE_FILE= "Preresource.png"; //ミーム画像集
+var Ori_RESOURCE_FILE = "Neta_minixmini.png"; //元ネタ画像集
+var Meme_RESOURCE_FILE= "Meme_minixmini.png"; //ミーム画像集
 
-var Pairs=10;       //ペアの組数
+//Ori_RESOURCE_FILE.height = 128;
+//Meme_RESOURCE_FILE.height = 128;
+
+var Pairs=12;       //ペアの組数
 
 var ROWS=4;
 var COLS=3;
-var Ori_ROWS=4;     //元ネタステージの行数
-var Ori_COLS=5;     //元ネタステージの列数
-var Meme_ROWS=4;    //ミームステージの行数
-var Meme_COLS=5;    //ミームステージの列数
+//var Ori_ROWS=4;     //元ネタステージの行数
+// var Ori_COLS=5;     //元ネタステージの列数
+// var Meme_ROWS=4;    //ミームステージの行数
+// var Meme_COLS=5;    //ミームステージの列数
 
 
-var CARD_H = 120;	// カードの高さ
-var CARD_W = 80;	// カードの幅
+var CARD_H = 142;	// カードの高さ
+var CARD_W = 142;	// カードの幅
 var DEFAULT_TIME = 60;	// 残り時間
 // 変数
 var Ori_cards = [];	// 元ネタカードの番号を記録
@@ -51,10 +54,12 @@ function initGame() {
 	selIndex = -1;	// 未選択
 	score = 0;
 	time = DEFAULT_TIME;
-	$("score").innerHTML = "SCORE: O";
+	$("score").innerHTML = "SCORE: 0";
 	initCards();
 	drawStage();
 	//countTime();
+    //$("result1").innerHTML = Ori_RESOURCE_FILE.width;
+    //$("result2").innerHTML = Ori_RESOURCE_FILE.height;
 }
 
 
@@ -83,6 +88,9 @@ function initCards() {
         var tmp2 =  Meme_cards[i];
         Meme_cards[i] = Meme_cards[s];
 		Meme_cards[s] = tmp2;
+        //var tmp1 =  Meme_cards[i];
+        //Meme_cards[i] = Meme_cards[r];
+		//Meme_cards[r] = tmp1;
 	}
 }
 
@@ -197,13 +205,14 @@ function canvasMDHandler(e) {
     if(col==0) pos+=0 ;
     else if(col==1) pos+=1;
     else if(col==2) pos+=2;
-    else if(col==4) pos+=10;
-    else if(col==5) pos+=11;
-    else if(col==6) pos+=12;
+    else if(col==4) pos+=Pairs;
+    else if(col==5) pos+=Pairs+1;
+    else if(col==6) pos+=Pairs+2;
     else pos=-1;
 
     console.log("click=" + pos);
     $("result1").innerHTML = pos;
+    //$("result1").innerHTML = Ori_cards[pos];
     //$("result2").innerHTML = Meme_cards[pos];
     //ここから
 	clickCard(pos);
@@ -280,23 +289,26 @@ function clickCard(pos) {
         if(Pairs>pos){
             Ori_opened[pos] = true;
             //Ori_drawStage();
+            Ori_drawStage();
         } else {
             Meme_opened[pos-Pairs] = true;
-            //Meme_drawStage();
+            Meme_drawStage();
         }
 		//Meme_opened[pos] = true;	// posのカードを表向きにセット
-		drawStage();	// ステージを描画
+        score -= 1;
+		$("score").innerHTML = "SCORE: " + score;
+		//drawStage();	// ステージを描画
 		lock = true;
 		setTimeout(function () {
-            if(Pairs>selIndex){
+            /*if(Pairs>selIndex){
                 Ori_opened[selIndex] = false;
-                //selIndex = -1;
+                selIndex = -1;
                 //Ori_drawStage();
             } else {
                 Meme_opened[selIndex-Pairs] = false;
-                //selIndex = -1;
+                selIndex = -1;
                 //Meme_drawStage();
-            }
+            }*/
             if(Pairs>pos){
                 Ori_opened[pos] = false;
                 selIndex = -1;
