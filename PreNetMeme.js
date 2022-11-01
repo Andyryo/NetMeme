@@ -216,6 +216,7 @@ function canvasMDHandler(e) {
     //$("result2").innerHTML = Meme_cards[pos];
     //ここから
 	clickCard(pos);
+	$("result2").innerHTML = selIndex;
 }
 
 // プレイヤーがカードを選んだときの処理
@@ -233,7 +234,7 @@ function clickCard(pos) {
         if(Pairs>pos){
             selIndex = pos;
             Ori_drawStage();
-			selIndex += Pairs;
+			//selIndex += Pairs;
         } else {
             selIndex = pos-Pairs;
             Meme_drawStage();
@@ -287,7 +288,7 @@ function clickCard(pos) {
 		$("nice").play();
 	} else {
 		// 間違い！1秒だけカードをプレイヤーに見せる
-		if(Pairs < selIndex){
+		if(Pairs > selIndex){
 		//一枚目を元ネタ側からめくったとき
 		if(Pairs>pos){
 			//二枚目も元ネタ側
@@ -297,7 +298,7 @@ function clickCard(pos) {
             Ori_drawStage();
         } else {
             Meme_opened[pos-Pairs] = true;
-			//selIndex -=Pairs;
+			selIndex =-1;
             Meme_drawStage();
         }
 		} else {
@@ -309,7 +310,8 @@ function clickCard(pos) {
         } else {
 			//二枚目もミーム
             Meme_opened[pos-Pairs] = true;
-			//selIndex -= Pairs;
+			//Meme_opened[seldom-Pairs] = true;
+			selIndex -= Pairs;
 			//Meme_opened[selIndex] = true;
             Meme_drawStage();
         }
