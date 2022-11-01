@@ -57,7 +57,7 @@ function initGame() {
 	$("score").innerHTML = "SCORE: 0";
 	initCards();
 	drawStage();
-	countTime();
+	//countTime();
     //$("result1").innerHTML = Ori_RESOURCE_FILE.width;
     //$("result2").innerHTML = Ori_RESOURCE_FILE.height;
 }
@@ -212,7 +212,7 @@ function canvasMDHandler(e) {
 
     console.log("click=" + pos);
     $("result1").innerHTML = pos;
-    //$("result1").innerHTML = Ori_cards[pos];
+    $("result2").innerHTML = selIndex;
     //$("result2").innerHTML = Meme_cards[pos];
     //ここから
 	clickCard(pos);
@@ -233,6 +233,7 @@ function clickCard(pos) {
         if(Pairs>pos){
             selIndex = pos;
             Ori_drawStage();
+			selIndex += Pairs;
         } else {
             selIndex = pos-Pairs;
             Meme_drawStage();
@@ -286,14 +287,33 @@ function clickCard(pos) {
 		$("nice").play();
 	} else {
 		// 間違い！1秒だけカードをプレイヤーに見せる
-        if(Pairs>pos){
+		if(Pairs < selIndex){
+		//一枚目を元ネタ側からめくったとき
+		if(Pairs>pos){
+			//二枚目も元ネタ側
             Ori_opened[pos] = true;
-            //Ori_drawStage();
+			//selIndex -= Pairs;
+			//Ori_opened[selIndex-Pairs] = true;
             Ori_drawStage();
         } else {
             Meme_opened[pos-Pairs] = true;
+			//selIndex -=Pairs;
             Meme_drawStage();
         }
+		} else {
+		//一枚目をミームからめくったとき
+		if(Pairs>pos){
+            Ori_opened[pos] = true;
+			//selIndex -=Pairs;
+            Ori_drawStage();
+        } else {
+			//二枚目もミーム
+            Meme_opened[pos-Pairs] = true;
+			//selIndex -= Pairs;
+			//Meme_opened[selIndex] = true;
+            Meme_drawStage();
+        }
+		}
 		//Meme_opened[pos] = true;	// posのカードを表向きにセット
         score -= 1;
 		$("score").innerHTML = "SCORE: " + score;
@@ -302,11 +322,11 @@ function clickCard(pos) {
 		setTimeout(function () {
             /*if(Pairs>selIndex){
                 Ori_opened[selIndex] = false;
-                selIndex = -1;
+                pos = -1;
                 //Ori_drawStage();
             } else {
                 Meme_opened[selIndex-Pairs] = false;
-                selIndex = -1;
+                pos = -1;
                 //Meme_drawStage();
             }*/
             if(Pairs>pos){
