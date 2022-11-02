@@ -100,7 +100,7 @@ function canvasMDHandler(e) {
 	pos = col + row *COLS;
 	console.log("click=" + pos);
     $("result1").innerHTML=pos;
-	//clickCard(pos);
+	clickCard(pos);
 }
 
 // プレイヤーがカードを選んだときの処理
