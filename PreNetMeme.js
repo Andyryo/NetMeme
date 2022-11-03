@@ -3,8 +3,8 @@
 // 定数
 var Ori_RESOURCE_FILE = "Neta_minixmini.png"; //元ネタ画像集
 var Meme_RESOURCE_FILE= "Meme_minixmini.png"; //ミーム画像集
-var Pairs=12;       //ペアの組数
-var ROWS=4;			//ステージの行数
+var Pairs=9;       //ペアの組数
+var ROWS=3;			//ステージの行数
 var COLS=3;			//ステージの列数
 var CARD_H = 142;	// カードの高さ
 var CARD_W = 142;	// カードの幅
@@ -20,9 +20,11 @@ var Meme_resImage;  // ミームが読み込まれる場所
 var ctx;        // 2Dグラフィック処理用
 var selIndex;	// プレーヤーの選択した値
 var score;		// スコア
+//var clear;		//ゲームクリア
 var time;		// 残り時間
 var lock;		// 連続リクック防止用
 var timer;		// タイマー
+
 
 // 初期化処理
 window.onload = function () {
@@ -256,7 +258,7 @@ function clickCard(pos) {
 		$("score").innerHTML = "SCORE: " + score;
 		drawStage();
 		// クリア判定
-		if (score >= Pairs*2) {
+		if (Clear(Ori_opened)==1) {
 			setTimeout(function () {
 				alert("GAME CLEAR!");
 				clearTimeout(timer);
@@ -339,4 +341,12 @@ function rand(n) {
 // DOM要素を返す
 function $(id) {
 	return document.getElementById(id);
+}
+
+//クリア判定関数
+function Clear(Ori_opened){
+	for(var i=0;i<Pairs;i++){
+		if(Ori_opened[i]==0) return 0;
+	}
+	return 1;
 }
