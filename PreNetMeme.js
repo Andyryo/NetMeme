@@ -3,6 +3,8 @@
 // 定数
 var Ori_RESOURCE_FILE = "Neta_minixmini.png"; //元ネタ画像集
 var Meme_RESOURCE_FILE= "Meme_minixmini.png"; //ミーム画像集
+var NetMemeBottom_FILE= "bg1.jpg"; 
+var NotNetMemeBottom_FILE="bg1,jpg";
 var Pairs=9;       //ペアの組数
 var ROWS=3;			//ステージの行数
 var COLS=3;			//ステージの列数
@@ -17,8 +19,13 @@ var Ori_opened = [];// 元ネタカードを開いたかどうかを記録
 var Meme_opened= [];// ミームカードを開いたかどうかを記録
 var Ori_resImage;   // 元ネタが読み込まれる場所
 var Meme_resImage;  // ミームが読み込まれる場所
+var Bottom_resImage; // ネトミムボタン格納場所
+var NotBottom_resImage; // Notネトミムボタン格納場所
 var ctx;        // 2Dグラフィック処理用
+var ctx2;		//ネトミムボタン処理用
+var ctx3;		//Notネトミムボタン処理用
 var selIndex;	// プレーヤーの選択した値
+var memeIndex;	//ネトミムボタン判定値
 var score;		// スコア
 //var clear;		//ゲームクリア
 var time;		// 残り時間
@@ -30,8 +37,14 @@ var timer;		// タイマー
 window.onload = function () {
 	// 描画コンテキストの取得
 	var canvas = $("mainCanvas");
+	var canvas2 = $("bottomCanvas");
+	var canvas3 = $("Not_bottomCanvas");
 	ctx = canvas.getContext("2d");
+	ctx2 = canvas2.getContext("2d");
+	ctx3 = canvas3.getContext("2d");
 	canvas.onmousedown = canvasMDHandler; //カードをクリックした後の処理
+	canvas2.onmousedown = canvasNetMeme;  //ネトミムボタンを押したときの処理
+	canvas3.onmousedown = canvasNotNetMeme;  //Notネトミムボタンを押したときの処理
 	// 画像ファイルの読み込み
 	Ori_resImage = loadImage(Ori_RESOURCE_FILE, function () {
 		initGame();
@@ -39,7 +52,9 @@ window.onload = function () {
     Meme_resImage = loadImage(Meme_RESOURCE_FILE, function() {
         initGame();
     })
-};
+}
+
+
 
 // ゲームの初期化
 function initGame() {
@@ -49,7 +64,11 @@ function initGame() {
 	$("score").innerHTML = "SCORE: 0";
 	initCards();
 	drawStage();
-	countTime();
+	Bottom_resImage = document.getElementById("NetMeme_buttom");
+	ctx2.drawImage(Bottom_resImage,0,0);
+	NotBottom_resImage = document.getElementById("Not_NetMeme_buttom");
+	ctx3.drawImage(NotBottom_resImage,0,0);
+	//countTime();
 }
 
 
@@ -198,12 +217,15 @@ function canvasMDHandler(e) {
     else pos=-1;
 
     console.log("click=" + pos);
+	console.log("Netmeme=" + memeIndex)
 	clickCard(pos);
 	
 }
 
 // プレイヤーがカードを選んだときの処理
 function clickCard(pos) {
+	// $("result1").innerHTML = pos;
+	// $("result2").innerHTML = memeIndex;
 	// 既にオープンしたカードなら何もしない
     if(Pairs>pos){
 	    if (Ori_opened[pos]) return;
@@ -241,6 +263,10 @@ function clickCard(pos) {
     } else {
         c2 = Meme_cards[pos-Pairs];
     }
+	// canvas2 or canvas3が押下されるのを待つ
+	// if (canvas3が押下されたとき){
+	// 　return
+	// } else if(canvas2が押下されたとき){
 	if (c1 == c2) {
         if(Pairs>selIndex){
             Ori_opened[selIndex] = true;
@@ -256,6 +282,7 @@ function clickCard(pos) {
 		selIndex = -1;
 		score += 2;
 		$("score").innerHTML = "SCORE: " + score;
+		memeIndex=0;
 		drawStage();
 		// クリア判定
 		if (Clear(Ori_opened)==1) {
@@ -293,6 +320,7 @@ function clickCard(pos) {
 		}
         score -= 1;
 		$("score").innerHTML = "SCORE: " + score;
+		memeIndex=0;
 		lock = true;
 		setTimeout(function () {
             if(Pairs>pos){
@@ -306,6 +334,21 @@ function clickCard(pos) {
 		},1000);
 		$("ng").play();
 	}
+	// }
+}
+
+//ネトミムを押下時
+function canvasNetMeme(e){
+	memeIndex = 1;
+	console.log("Netmeme=" + memeIndex)
+	clickCard(pos);
+}
+
+//Notネトミムを押下時
+function canvasNotNetMeme(e){
+	memeIndex = -1;
+	console.log("Netmeme=" + memeIndex)
+	clickCard(pos);
 }
 
 

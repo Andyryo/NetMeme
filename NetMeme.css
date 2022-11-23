@@ -12,3 +12,7 @@ h1 {
 	font-size: 1em;
 	padding: 10px;
 }
+
+#bottomCanvas {
+	color: aqua;
+}

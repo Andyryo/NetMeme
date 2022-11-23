@@ -1,38 +1,82 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="Shift JIS">
 		<meta name="viewport" content="width=2400">
-		<title>ã‚¿ã‚¤ãƒ ãƒãƒˆãƒŸãƒ </title>
-		<!-- <script type="text/javascript" src="NetMeme.js"></script> -->
-		<script type="text/javascript" src="PreNetMeme.js"></script>
+		<title>ƒ^ƒCƒ€ƒlƒgƒ~ƒ€</title>
+		<script type="text/javascript" src="NetMeme.js"></script>
+		<script type="text/javascript" src="jQuery3.6_dev.js"></script>
+		<script type="text/javascript" src="NetMemeV2.0.js"></script>
 		<link rel="stylesheet" type="text/css" href="NetMeme.css">
+		<script type="module">
+			// Import the functions you need from the SDKs you need
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+			import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-analytics.js";
+			// TODO: Add SDKs for Firebase products that you want to use
+			// https://firebase.google.com/docs/web/setup#available-libraries
+		  
+			// Your web app's Firebase configuration
+			// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+			const firebaseConfig = {
+			  apiKey: "AIzaSyBvigGBjHSkfU5CvP37eqK1RQGy8tUw2SA",
+			  authDomain: "netmeme-7822f.firebaseapp.com",
+			  projectId: "netmeme-7822f",
+			  storageBucket: "netmeme-7822f.appspot.com",
+			  messagingSenderId: "542505158963",
+			  appId: "1:542505158963:web:df384418f73dabed0dd646",
+			  measurementId: "G-5LS7ZTFERW"
+			};
+		  
+			// Initialize Firebase
+			const app = initializeApp(firebaseConfig);
+			const analytics = getAnalytics(app);
+		  </script>
 	</head>
 	<body>
-		<h1>ãƒãƒˆãƒŸãƒ </h1>
+		<h1>ƒlƒgƒ~ƒ€</h1>
 		<div>
 			<span id="score">SCORE: 0</span>
-			<span id="time">æº–å‚™ä¸­ã§ã™ã€‚å°‘ã€…ãŠå¾…ã¡ãã ã•ã„.</span>
-			<!-- <span id="result3"> </span> -->
+			<span id="time">­X‚¨‘Ò‚¿‚­‚¾‚³‚¢</span>
+			<span id="result1"> </span>
+			<!-- <span id="result2"> </span> -->
 		</div>
 		<div>
-			<span id="Original">â†å…ƒãƒã‚¿</span>
-			<span id="Meme">ãƒãƒƒãƒˆãƒŸãƒ¼ãƒ â†’</span>
+			<span id="Original">©Œ³ƒlƒ^</span>
+			<span id="Meme">ƒlƒbƒgƒ~[ƒ€¨</span>
 		</div>
 		<div>
 			<!-- NetMemeç”¨ -->
 			<!-- <canvas id="mainCanvas" width="400" height="480"></canvas> -->
 			<!-- PreNetMemeç”¨ -->
-			<canvas id="mainCanvas" width="994" height="568"></canvas>
+			<canvas id="mainCanvas" width="994" height="426"></canvas>
 		</div>
-		<!-- ï¿½ï¿½ï¿½ï¿½ï¿½Äï¿½ï¿½p -->
-		<audio id="nice">
-			<source src="nice.mp3">
-			<source src="nice.ogg">
-		</audio>
-		<audio id="ng">
-			<source src="ng.mp3">
-			<source src="ng.ogg">
-		</audio>
+		<div>
+			<canvas id="bottomCanvas" width="100" height="50">ƒlƒgƒ~ƒ€II</canvas>
+			<img id="NetMeme_buttom" src="bg1.jpg" alt="" style="display:none"/>
+			<!-- <canvas id="Not_bottomCanvas" width="100" height="50">Notƒlƒgƒ~ƒ€</canvas> -->
+			<!-- <img id="Not_NetMeme_buttom" src="bg1.jpg" alt="" style="display:none"/> -->
+		</div>
+		<div>
+			<!-- <data id="Scenario" value="0"></data> -->
+			<p id="Scenario" data-name="0"></p>
+			<p id="c1" data-name="-1"></p>
+			<p id="c2" data-name="-1"></p>
+			<p id="pos" data-name="-1"></p>
+			<p id="selIndex" data-name="-1"></p>
+			<!-- <p id="Ori_opend" data-a="0" data-b="0" data-c="0" data-d="0" data-e="0" data-f="0" data-g="0" data-h="0" data-i="0"></p> -->
+			<!-- <p id="Meme_opend" data-a="0" data-b="0" data-c="0" data-d="0" data-e="0" data-f="0" data-g="0" data-h="0" data-i="0"></p> -->
+		</div>
+
+
+		<!-- <audio id="nice"> -->
+			<!-- <source src="nice.mp3"> -->
+			<!-- <source src="nice.ogg"> -->
+		<!-- </audio> -->
+		<!-- <audio id="ng"> -->
+			<!-- <source src="ng.mp3"> -->
+			<!-- <source src="ng.ogg"> -->
+		<!-- </audio> -->
+		<!-- <script type="text/javascript" src="jQuery3.6_dev.js"></script>
+		<script type="text/javascript" src="NetMemeV2.0.js"></script> -->
 	</body>
 </html>
